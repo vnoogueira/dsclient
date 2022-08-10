@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,16 @@ public class ClientService {
 			throw new ResourceNotFoundException("Id not found: " + id);
 		}
 
+	}
+
+	
+	public void deleteClientById(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Database Integrity");
+		} catch (DataIntegrityViolationException d) {
+		}
 	}
 
 	private void copyEntityToDto(ClientDTO obj, Client entity) {

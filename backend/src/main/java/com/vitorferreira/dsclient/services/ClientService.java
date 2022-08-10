@@ -53,7 +53,6 @@ public class ClientService {
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found: " + id);
 		}
-
 	}
 
 	
